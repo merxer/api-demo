@@ -37,6 +37,10 @@ func createUser(c echo.Context) error {
 	return c.JSON(http.StatusCreated, u)
 }
 
+func greeting(c echo.Context) error {
+	return c.String(http.StatusOK, "ok!")
+}
+
 func getUser(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	return c.JSON(http.StatusOK, users[id])
@@ -66,6 +70,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
+	e.GET("/", greeting)
 	e.POST("/users", createUser)
 	e.GET("/users/:id", getUser)
 	e.PUT("/users/:id", updateUser)
